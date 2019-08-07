@@ -1,4 +1,5 @@
 .telegram_api_url
+chatIds.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

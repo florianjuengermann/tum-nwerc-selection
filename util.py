@@ -20,6 +20,8 @@ def saveChatIds(ids:list):
 
 def fixWidth(width, s):
 	return ("{:^"+str(width)+"}").format(s)
+def fixWidthR(width, s):
+	return ("{:"+str(width)+"}").format(s)
 
 class Table:
 	def __init__(self, withHead=True, withRowHead=True):
@@ -97,7 +99,7 @@ class Table:
 				line += "|" + fixWidth(spaceLeft-1, c) + "|\n"
 				index = 0
 			else:
-				line += "|" + fixWidth(self.cellWidth, c)
+				line += "|" + fixWidthR(self.cellWidth, c)
 				index += 1 + self.cellWidth
 		if index != 0:
 			line += " "*(tableW-1 - index) + "|\n"

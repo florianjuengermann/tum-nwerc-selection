@@ -7,7 +7,9 @@ import util
 
 def handleRanking(chatId, txt):
   table = ranking.getTable()
-  tg.sendMessage(chatId, "```\n" + table.toStr(width=32) + "```")
+  n = len(ranking.getDates())
+  msg = "Current standings after __n={}__ contests:\n".format(n)
+  tg.sendMessage(chatId, msg + "```\n" + table.toStr(width=32) + "```")
 
 def invalidCommand(cid, msg):
   tg.sendMessage(cid, "Invalid command!")
@@ -29,16 +31,21 @@ def update():
   print("updating ranking object")
   ranking.update()
 
+def msgAll(text):
+  for chatId in chatIds:
+    tg.sendMessage(chatId, text)
+
 def checkUpcomingContest():
   dates = ranking.getDates()
   for d in dates:
     curT = time.time()
     oneDayBef = d["time"] - 60*60*24
     twoHourBef = d["time"] - 60*60*2
+    type = d["type"].capitalize()
+    if curT > twoHourBef and curT < twoHourBef + 60:
+      msgAll("**Reminder:** Rated {} contest starts in 2h.".format(type))
     if curT > oneDayBef and curT < oneDayBef + 60:
-      pass
-    if curT > oneDayBef and curT < oneDayBef + 60:
-      pass
+      msgAll("**Reminder:** Rated {} contest starts in 24h.".format(type))
 
 
 

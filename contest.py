@@ -22,27 +22,33 @@ class Contest(ABC):
 		return self.calcHandleScore(handle)
 
 	def calcHandleScore(self, handle:str) -> float:
+		avgScore = self.getAvgScore()
+		score = self.getRawScore(handle)
+		scaledScore = score / avgScore
+		#print("avgScore: {:04.2f}, score for {}: {:04.2f}".format(avgScore, handle, score))
+		return scaledScore
+	
+	# the unscaled score for a handle
+	def getRawScore(self, handle:str) -> float:
+		# number of total participants
+		participants = len(self.handlesSolved)
+		score = 0
+		for taskI in self.handlesSolved.get(handle, []):
+			solvedFraction = self.numberSolved[taskI]/participants
+			score += (1 - math.log(solvedFraction))
+		return score
+
+	def getAvgScore(self) -> float:
 		# number of total participants
 		participants = len(self.handlesSolved)
 		avgScore = 0
-
-
 		for taskI in self.numberSolved:
 			solvedFraction = self.numberSolved[taskI]/participants
 			if solvedFraction > 0:
 				avgScore += solvedFraction * (1 - math.log(solvedFraction))
-		
-		# the unadjusted score for handle
-		score = 0
-		for taskI in self.handlesSolved[handle]:
-			solvedFraction = self.numberSolved[taskI]/participants
-			score += (1 - math.log(solvedFraction))
 
-		print("avgScore: {:04.2f}, score for {}: {:04.2f}".format(avgScore, handle, score))
+		return avgScore
 
-		scaledScore = score / avgScore
-		return scaledScore
-		
 	# re-fetches all scores (may take a while)
 	# sets allStandings
 	@abstractmethod

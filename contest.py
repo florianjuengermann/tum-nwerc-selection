@@ -26,15 +26,19 @@ class Contest(ABC):
 		participants = len(self.handlesSolved)
 		avgScore = 0
 
-		for nbSolved in self.numberSolved:
-			solvedFraction = nbSolved/participants
-			avgScore += solvedFraction * (1 - math.log(solvedFraction))
+
+		for taskI in self.numberSolved:
+			solvedFraction = self.numberSolved[taskI]/participants
+			if solvedFraction > 0:
+				avgScore += solvedFraction * (1 - math.log(solvedFraction))
 		
 		# the unadjusted score for handle
 		score = 0
 		for taskI in self.handlesSolved[handle]:
-			solvedFraction = numberSolved[taskI]/participants
+			solvedFraction = self.numberSolved[taskI]/participants
 			score += (1 - math.log(solvedFraction))
+
+		print("avgScore: {:04.2f}, score for {}: {:04.2f}".format(avgScore, handle, score))
 
 		scaledScore = score / avgScore
 		return scaledScore

@@ -38,7 +38,6 @@ class Ranking:
     for name in self.names:
       currentNameScores = []
       for c in self.contestList:
-        print(c, name)
         currentNameScores.append(c.getScore(name))
       self.ranking.append(currentNameScores)
 

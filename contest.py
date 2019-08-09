@@ -10,7 +10,7 @@ class Contest(ABC):
 	handleString = "" 	# ∈ {"codefores-handle", "atcoder-handle"}
 	handleMap = None 		# {"clear-name": {"codforces-handle": …, "atc.h":…} }
 	def __init__(self, id, handleMap):
-		self.handleMap
+		self.handleMap = handleMap
 		self.id = id
 
 	# clear name of user (not handle) -> score in this contest
@@ -18,7 +18,7 @@ class Contest(ABC):
 		if self.handlesSolved is None:
 			self.updateScores()
 		#print(self.numberSolved)
-		handle = self.handleMap[name][handleString]
+		handle = self.handleMap[name][self.handleString]
 		return self.calcHandleScore(handle)
 
 	def calcHandleScore(self, handle:str) -> float:
@@ -26,13 +26,13 @@ class Contest(ABC):
 		participants = len(self.handlesSolved)
 		avgScore = 0
 
-		for nbSolved in numberSolved:
+		for nbSolved in self.numberSolved:
 			solvedFraction = nbSolved/participants
 			avgScore += solvedFraction * (1 - math.log(solvedFraction))
 		
 		# the unadjusted score for handle
 		score = 0
-		for taskI in handlesSolved[handle]:
+		for taskI in self.handlesSolved[handle]:
 			solvedFraction = numberSolved[taskI]/participants
 			score += (1 - math.log(solvedFraction))
 

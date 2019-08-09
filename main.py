@@ -10,8 +10,8 @@ def readConfig():
 readConfig()
 ranking = Ranking(config)
 names = ranking.getNames()
-standings = ranking.getStandings()
-for name, scores in zip(names, stadings):
+standings = ranking.getRanking()
+for name, scores in zip(names, standings):
   rowStr = name + ":"
   for score in scores:
     rowStr.append(" " + str(score))

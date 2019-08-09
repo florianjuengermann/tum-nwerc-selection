@@ -13,27 +13,32 @@ class Ranking:
   def getRanking(self):
     return self.ranking
 
+  def getNames(self):
+    return self.names
+
   def updateRanking(self):
+    self.contestDates = []
     self.fetchContests()
     self.calcStandings()
 
-  def fetchContests():
+  def fetchContests(self):
     newContestDates = dates.getDates()
     if newContestDates != self.contestDates:
       self.contestDates = newContestDates
-      contestList = []
+      self.contestList = []
       for date in self.contestDates:
         if date['type'] == 'atcoder':
-          contestList.append(AtcoderContest(date['id']), self.handleMap)
+          self.contestList.append(AtcoderContest(date['id'], self.handleMap))
         else:
-          contestList.append(CodeforcesContest(date['id']), self.handleMap)
+          self.contestList.append(CodeforcesContest(date['id'], self.handleMap))
 
-  def calcStandings():
-    self.names = handleMap.keys()
-    self.standings = []
+  def calcStandings(self):
+    self.names = self.handleMap.keys()
+    self.ranking = []
     for name in self.names:
       currentNameScores = []
-      for c in contestList:
+      for c in self.contestList:
+        print(c, name)
         currentNameScores.append(c.getScore(name))
-      self.standings.append(currentNameScores)
+      self.ranking.append(currentNameScores)
 

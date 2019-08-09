@@ -3,17 +3,19 @@ import contestDates as dates
 from codeforcesContest import CodeforcesContest
 
 class Ranking:
-  def __init__(self, handles):
+  def __init__(self, config):
     self.contestList = []
-    self.handleMap = handles
+    self.handleMap = config['users']
+    self.startDate = config['startDate']
+    self.endDate = config['endDate']
     self.updateRanking()
 
   def getRanking(self):
     return self.ranking
 
-  def updateRanking():
-    fetchContests()
-    calcStandings()
+  def updateRanking(self):
+    self.fetchContests()
+    self.calcStandings()
 
   def fetchContests():
     newContestDates = dates.getDates()
@@ -28,10 +30,10 @@ class Ranking:
 
   def calcStandings():
     self.names = handleMap.keys()
-    standings = []
+    self.standings = []
     for name in self.names:
       currentNameScores = []
       for c in contestList:
         currentNameScores.append(c.getScore(name))
-      standings.append(currentNameScores)
+      self.standings.append(currentNameScores)
 

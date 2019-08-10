@@ -20,16 +20,18 @@ class Table:
 	def setHead(self, rhTitle, th):
 		self.rhTitle = rhTitle
 		self.th = th
-		self.rhWidth = max(self.rhWidth, len(rhTitle))
-		self.colCount= max(self.colCount, len(th))
+		self.setMaxValues(rhTitle, th)
 
 	def addRow(self, rh:str, rData:list):
 		self.rh.append(rh)
 		self.data.append(rData)
-		cW = max([len(x) for x in rData])
+		self.setMaxValues(rh, rData)
+
+	def setMaxValues(self, title:str, data:list):
+		cW = max([len(x) for x in data])
 		self.cellWidth = max(self.cellWidth, cW)
-		self.rhWidth = max(self.rhWidth, len(rh))
-		self.colCount= max(self.colCount, len(rData))
+		self.rhWidth = max(self.rhWidth, len(title))
+		self.colCount= max(self.colCount, len(data))
 
 	def toStr(self, width=120):
 		tableW = 0

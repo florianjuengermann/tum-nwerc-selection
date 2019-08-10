@@ -13,8 +13,8 @@ class CodeforcesContest(Contest):
 		cfStandings = cfApi.request("contest.standings", {"contestId": self.id})
 		if cfStandings is False:
 			return
-		roundNr = re.search("[0-9][0-9]", cfStandings["contest"]["name"])
-		name = "Edu. " + str(roundNr)
+		roundNr = re.search("[0-9][0-9]", cfStandings["contest"]["name"]).group()
+		self.name = "CF-" + str(roundNr)
 
 		# reset everything
 		self.handlesSolved = {}

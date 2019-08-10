@@ -20,20 +20,19 @@ def sortingKey(pair):
 		scoreSum += scores[i]
 	return scoreSum
 
-#table = Table()
 
+def getRankingTable() -> Table:
+	readConfig()
+	ranking = Ranking(config)
+	names = ranking.getNames()
+	standings = ranking.getRanking()
+	table = Table()
+	table.setHead("", ranking.getContestNames())
+	for name, scores in reversed(sorted(zip(names, standings), key=sortingKey)):
+		scoreStrings = ["{:04.2f}".format(s) for s in scores]
+		table.addRow("{:.15}".format(name), scoreStrings)
+	return table
 
-#exit()
-
-readConfig()
-ranking = Ranking(config)
-names = ranking.getNames()
-standings = ranking.getRanking()
-table = Table()
-table.setHead("Names", ranking.getContestNames())
-print("\nSTANDINGS:\n ")
-for name, scores in reversed(sorted(zip(names, standings), key=sortingKey)):
-	scoreStrings = ["{:04.2f}".format(s) for s in scores]
-	table.addRow("{:.15}".format(name), scoreStrings)
-
-print(table.toStr(width=60))
+if __name__ == '__main__':
+	print("\nSTANDINGS:\n ")
+	print(getRankingTable().toStr(width=80))

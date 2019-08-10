@@ -3,6 +3,8 @@ from datetime import datetime
 
 def getCFContests(start, end):
 	contests = cfapi.request('contest.list', {'gym':'false'})
+	if contests is False:
+		return []
 	contests = [c for c in contests if c.get('startTimeSeconds', -1) >= start]
 	contests = [c for c in contests if c.get('startTimeSeconds', -1) <= end]
 	contests = [c for c in contests if "Educational" in c['name']]

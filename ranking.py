@@ -16,6 +16,9 @@ class Ranking:
   def getNames(self):
     return self.names
 
+  def getContestNames(self):
+    return [c.name for c in self.contestList]
+
   def updateRanking(self):
     self.contestDates = []
     self.fetchContests()

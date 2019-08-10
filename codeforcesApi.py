@@ -15,7 +15,7 @@ def request(method, params):
   try:
     r = requests.get(request, timeout=15)
   except requests.exceptions.Timeout as errt:
-    print("Timeout on Codeforces.", errt)
+    print("Timeout on Codeforces.")
     return False
   r = r.json()
   if r['status'] == 'OK':

@@ -1,14 +1,17 @@
 from contest import Contest
 import contestDates as dates
 from codeforcesContest import CodeforcesContest
+from contestDates import ContestDates
+from util import Table
 
 class Ranking:
   def __init__(self, config):
-    self.contestList = []
+    self.contestObjList = []
+    self.contestDateList = []
     self.handleMap = config['users']
     self.startDate = config['startDate']
     self.endDate = config['endDate']
-    self.config = config
+    self.contestDates = ContestDates(config)
     self.updateRanking()
 
   def getRanking(self):
@@ -17,24 +20,27 @@ class Ranking:
   def getNames(self):
     return self.names
 
+  def getDates(self):
+    return self.contestDateList
+
   def getContestNames(self):
-    return [c.name for c in self.contestList]
+    return [c.name for c in self.contestObjList]
 
   def updateRanking(self):
-    self.contestDates = []
+    self.contestDateList = []
     self.fetchContests()
     self.calcStandings()
 
   def fetchContests(self):
-    newContestDates = dates.getDates(self.config)
+    newContestDates = self.contestDates.getDates()
     if newContestDates != self.contestDates:
-      self.contestDates = newContestDates
-      self.contestList = []
-      for date in self.contestDates:
+      self.contestDateList = newContestDates
+      self.contestObjList = []
+      for date in self.contestDateList:
         if date['type'] == 'atcoder':
-          self.contestList.append(AtcoderContest(date['id'], self.handleMap))
+          self.contestObjList.append(AtcoderContest(date['id'], self.handleMap))
         else:
-          self.contestList.append(CodeforcesContest(date['id'], self.handleMap))
+          self.contestObjList.append(CodeforcesContest(date['id'], self.handleMap))
 
   def calcStandings(self):
     self.names = self.handleMap.keys()
@@ -48,7 +54,27 @@ class Ranking:
 '''
     for name in self.names:
       currentNameScores = []
-      for c in self.contestList:
+      for c in self.contestObjList:
         currentNameScores.append(c.getScore(name))
       self.ranking.append(currentNameScores)
 
+  def sortingKey(self, pair):
+    name, scores = pair
+    # sort descending
+    scores.sort()
+    scores.reverse()
+    n = len(scores)
+    scoreSum = 0
+    # take ceil(n/2) scores
+    for i in range((n+1)//2):
+      scoreSum += scores[i]
+    return scoreSum
+
+  def getTable(self) -> Table:
+    table = Table()
+    table.setHead("", self.getContestNames())
+    lst = zip(self.names, self.ranking)
+    for name, scores in reversed(sorted(lst, key=self.sortingKey)):
+      scoreStrings = ["{:04.2f}".format(s) for s in scores]
+      table.addRow("{:.15}".format(name), scoreStrings)
+    return table

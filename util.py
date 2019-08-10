@@ -1,3 +1,23 @@
+import json
+
+def readConfig():
+  with open('config.json') as f:
+    return json.load(f)
+  return {}
+
+def readChatIds():
+	try:
+		with open('chatIds.json') as f:
+			return json.load(f)
+	except:
+		pass
+	return []
+
+def saveChatIds(ids:list):
+	with open("chatIds.json", "w") as f:
+		json.dump(ids, f)
+
+
 def fixWidth(width, s):
 	return ("{:^"+str(width)+"}").format(s)
 

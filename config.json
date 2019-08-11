@@ -3,9 +3,15 @@
   "endDate": "10.10.2019",
   "users": {
     "Tobias": {"codeforces-handle": "tob123", "atcoder-handle": "tob123"},
-    "Florian": {"codeforces-handle": "fjuengermann", "atcoder-handle": "fjuengermann"},
+    "FlorianJ": {"codeforces-handle": "fjuengermann", "atcoder-handle": "fjuengermann"},
     "Konstantin": {"codeforces-handle": "Iriskinn", "atcoder-handle": "Iriskinn"},
     "Lukas": {"codeforces-handle": "lumibons", "atcoder-handle": "lumibons"},
-    "Gregor": {"codeforces-handle": "Gregory", "atcoder-handle": "Gregory"}
+    "Gregor": {"codeforces-handle": "Gregory", "atcoder-handle": "Gregory"},
+    "Volodymyr": {"codeforces-handle": "vlfom", "atcoder-handle": "vlfom"},
+    "Erik": {"codeforces-handle": "eriksuenderhauf", "atcoder-handle": "eshoru"},
+    "Leo": {"codeforces-handle": "Garrus", "atcoder-handle": "Garrus"},
+    "Fabian": {"codeforces-handle": "_MF_", "atcoder-handle": "MF1"},
+    "FlorianL": {"codeforces-handle": "fleimgruber", "atcoder-handle": "fleimgruber"},
+    "Atacan": {"codeforces-handle": "atacan", "atcoder-handle": "atacan"}
   }
 }

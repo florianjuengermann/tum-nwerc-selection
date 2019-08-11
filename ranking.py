@@ -1,6 +1,7 @@
 from contest import Contest
 import contestDates as dates
 from codeforcesContest import CodeforcesContest
+from atcoderContest import AtcoderContest
 from contestDates import ContestDates
 from util import Table
 
@@ -61,13 +62,14 @@ class Ranking:
   def sortingKey(self, pair):
     name, scores = pair
     # sort descending
-    scores.sort()
-    scores.reverse()
-    n = len(scores)
+    scoresCopy = scores.copy()
+    scoresCopy.sort()
+    scoresCopy.reverse()
+    n = len(scoresCopy)
     scoreSum = 0
     # take ceil(n/2) scores
     for i in range((n+1)//2):
-      scoreSum += scores[i]
+      scoreSum += scoresCopy[i]
     return scoreSum
 
   def getTable(self) -> Table:

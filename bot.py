@@ -29,7 +29,7 @@ def handleMessage(chatId, text):
 def update():
   #global ranking
   print("updating ranking object")
-  ranking.update()
+  ranking.updateRanking()
 
 def msgAll(text):
   for chatId in chatIds:

@@ -5,7 +5,12 @@ A tool which
 - shows the ranking among all TUM participants.
 
 ## Usage
-Install Python 3 and additionally the Python module `requests` as it is not a built-in module.
+Install Python 3 and additionally the Python modules:
+- `requests`
+- `beautifulsoup4`
+- `lxml`
+(all available via pip).
+
 For running the tool use `python3 main.py`. The current ranking will be printed to the console.
 The `runbot.py` file is used to host a Telegram bot for which Telegram API keys are needed.
 

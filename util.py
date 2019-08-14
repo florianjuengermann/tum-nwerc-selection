@@ -1,4 +1,5 @@
 import json
+from pytz import timezone
 
 def readConfig():
   with open('config.json') as f:
@@ -17,11 +18,18 @@ def saveChatIds(ids:list):
 	with open("chatIds.json", "w") as f:
 		json.dump(ids, f)
 
+def convertTimeZone(date, fromTimeZone, toTimeZone):
+	fromTZ = timezone(fromTimeZone)
+	date = fromTZ.localize(date)
+	return date.astimezone(timezone(toTimeZone))
+
 
 def fixWidth(width, s):
 	return ("{:^"+str(width)+"}").format(s)
+
 def fixWidthR(width, s):
 	return ("{:"+str(width)+"}").format(s)
+
 
 class Table:
 	def __init__(self, withHead=True, withRowHead=True):

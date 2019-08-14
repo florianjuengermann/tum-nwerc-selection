@@ -4,11 +4,12 @@ from codeforcesContest import CodeforcesContest
 from atcoderContest import AtcoderContest
 from contestDates import ContestDates
 from util import Table
+import time
 
 class Ranking:
   def __init__(self, config):
-    self.contestObjList = []
-    self.contestDateList = []
+    self.contestObjList = [] #contains only past or started contest objects
+    self.contestDateList = [] #contains past and future contest dates
     self.handleMap = config['users']
     self.startDate = config['startDate']
     self.endDate = config['endDate']
@@ -38,6 +39,8 @@ class Ranking:
       self.contestDateList = newContestDates
       self.contestObjList = []
       for date in self.contestDateList:
+        if date['time'] > time.time():
+          continue
         if date['type'] == 'atcoder':
           self.contestObjList.append(AtcoderContest(date['id'], self.handleMap))
         else:

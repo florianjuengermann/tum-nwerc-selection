@@ -7,7 +7,7 @@ import util
 
 def handleRanking(chatId, txt):
   table = ranking.getTable()
-  n = len(ranking.getDates())
+  n = len(ranking.getContestNames())
   msg = "Current standings after __n={}__ contests:\n".format(n)
   tg.sendMessage(chatId, msg + "```\n" + table.toStr(width=32) + "```")
 

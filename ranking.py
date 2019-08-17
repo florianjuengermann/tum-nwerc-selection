@@ -49,13 +49,7 @@ class Ranking:
   def calcStandings(self):
     self.names = self.handleMap.keys()
     self.ranking = []
-    '''
-    # TEST
-    cache = [[3.664998986028648], [3.664998986028648], [1.3171947472706973], [5.651676218323456], [0.0]]
-    cache = [x*15 for x in cache]
-    self.ranking = cache
-    return
-'''
+
     for name in self.names:
       currentNameScores = []
       for c in self.contestObjList:

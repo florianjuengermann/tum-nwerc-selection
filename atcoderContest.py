@@ -22,6 +22,9 @@ class AtcoderContest(Contest):
 				self.numberSolved[i] = 0
 				i += 1
 			for row in r['StandingsData']:
+				# only people with at least one submission are counted
+				if row['TotalResult']['Count'] == 0:
+					continue 
 				handle = row['UserScreenName']
 				self.handlesSolved[handle] = []
 				for taskName, result in row['TaskResults'].items():

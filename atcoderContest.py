@@ -10,7 +10,7 @@ class AtcoderContest(Contest):
 		print("fetching scores for Atcoder contest ", self.id)
 		self.handlesSolved = {}
 		self.numberSolved = {}
-		self.name = self.id
+		self.name = self.id[:3] + self.id[4:] # leave out '0' -> 5 chars only
 		try:
 			url = "https://atcoder.jp/contests/" + self.id + "/standings/json"
 			r = requests.get(url, timeout=15)

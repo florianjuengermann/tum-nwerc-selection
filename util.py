@@ -26,18 +26,21 @@ def convertTimeZone(date, fromTimeZone, toTimeZone):
 
 def fixWidth(width, s):
 	return ("{:^"+str(width)+"}").format(s)
-
 def fixWidthR(width, s):
 	return ("{:"+str(width)+"}").format(s)
+def fixWidthL(width, s):
+	return ("{:<"+str(width)+"}").format(s)
 
 
 class Table:
-	def __init__(self, withHead=True, withRowHead=True):
+	def __init__(self, withHead=True, withRowHead=True, displayKey = True):
 		self.withHead = withHead
 		self.withRowHead = withRowHead
+		self.displayKey = displayKey
 		self.rhTitle = ""
 		self.th = []
 		self.rh = []
+		self.rKey = [] # key for each row. Used for sorting
 		self.data = [] # 2D
 		# widths:
 		self.rhWidth = 0
@@ -52,8 +55,9 @@ class Table:
 		self.th = th
 		self.setMaxValues(rhTitle, th)
 
-	def addRow(self, rh:str, rData:list):
+	def addRow(self, rh:str, rData:list, key:float = None):
 		self.rh.append(rh)
+		self.rKey.append(key)
 		self.data.append(rData)
 		self.setMaxValues(rh, rData)
 
@@ -64,44 +68,64 @@ class Table:
 		self.colCount= max(self.colCount, len(data))
 
 	def toStr(self, width=120):
+		if self.displayKey:
+			rhWidth = self.rhWidth + len(":99.99") + len("10. ")
 		tableW = 0
 		colC = 0
-		rhNewRow = self.rhWidth >= width/2
+		print("width:", width, "rhWidth", rhWidth)
+		rhNewRow = rhWidth >= width/2
 		if rhNewRow: 	# row-title in new row
 			colC = (width-1) // (self.cellWidth+1)
 			colC = min(colC, self.colCount)
-			tableW = max(self.rhWidth+2, colC * (self.cellWidth+1)+1)
+			tableW = max(rhWidth+2, colC * (self.cellWidth+1)+1)
 		else:
-			colC = (width-(self.rhWidth+1)-1) // (self.cellWidth+1)
+			colC = (width-(rhWidth+1)-1) // (self.cellWidth+1)
 			colC = min(colC, self.colCount)
-			tableW = self.rhWidth+1 + colC * (self.cellWidth+1)+1
+			tableW = rhWidth+1 + colC * (self.cellWidth+1)+1
 
 		lines = []
-		lines.append(self.horzDiv(rhNewRow, tableW, colC))
+		lines.append(self.horzDiv(rhNewRow, rhWidth, tableW, colC))
 		if self.withHead:
-			lines.append(self.getRow(rhNewRow, tableW, colC, self.rhTitle, self.th))
-			lines.append(self.horzDiv(rhNewRow, tableW, colC))
+			lines.append(self.getRow(rhNewRow, rhWidth, tableW, colC, self.rhTitle, None, self.th))
+			lines.append(self.horzDiv(rhNewRow, rhWidth, tableW, colC))
 		# data:
+		rank = 1
 		for i in range(len(self.data)):
-			lines.append(self.getRow(rhNewRow, tableW, colC, self.rh[i], self.data[i]))
-			lines.append(self.horzDiv(rhNewRow, tableW, colC))
+			if i > 0 and self.rKey[i-1] != self.rKey[i]:
+				rank = i+1
+			lines.append(self.getRow(rhNewRow, rhWidth, tableW, colC, 
+										self.rh[i], self.rKey[i], self.data[i], rank))
+			lines.append(self.horzDiv(rhNewRow, rhWidth, tableW, colC))
+
 
 		return "".join(lines)
 
-	def getRow(self, rhNewRow, tableW, colC, title, data):
+	def getRow(self, rhNewRow, rhWidth, tableW, colC, title, key, data, rank=None):
 		data += [''] * (self.colCount - len(data))
+
 		line = ""
 		index = 0
-		if rhNewRow:
-			line += "|"+fixWidth(tableW-2, title) + "|\n"			
+		if self.displayKey and key != None:
+			keyStr = "{:5.2f}".format(key)
+			title = title + ":"
 		else:
-			line += "|"+fixWidth(self.rhWidth, title)
-			index = 1 + self.rhWidth
+			keyStr = ""
+
+		if rank != None:
+			title = fixWidthR(2, rank)+". " + title
+
+		if rhNewRow:
+			title = fixWidthL(tableW-2-len(keyStr), title)
+			line += "|" + title + keyStr + "|\n"
+		else:
+			title = fixWidthL(rhWidth-len(keyStr), title)
+			line += "|" + title + keyStr
+			index = 1 + rhWidth
 		for c in data:
 			spaceLeft = tableW - index - 1
 			if index == 0 and not rhNewRow:
-				line += "|" + " "*self.rhWidth
-				index = 1 + self.rhWidth
+				line += "|" + " "*rhWidth
+				index = 1 + rhWidth
 			if spaceLeft < 2*(self.cellWidth+1): 
 				# fill row and start new
 				line += "|" + fixWidth(spaceLeft-1, c) + "|\n"
@@ -114,12 +138,15 @@ class Table:
 		return line
 	
 
-	def horzDiv(self, rhNewRow, tableW, colC):
+	def horzDiv(self, rhNewRow, rhWidth, tableW, colC):
 		s = ""
 		if not rhNewRow and self.withRowHead:
 			s += "+"
-			s += "-"*self.rhWidth
+			s += "-"*rhWidth
 		s += ("+" + "-"*self.cellWidth)*colC
 		s += "-"* ((tableW-1)-len(s))
 		s +="+\n"
 		return s
+
+	def sort(self, rev=True):
+		self.rKey, self.rh, self.data = zip(*sorted(zip(self.rKey, self.rh, self.data), reverse=True))

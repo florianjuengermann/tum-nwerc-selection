@@ -8,12 +8,12 @@ import time
 
 class Ranking:
   def __init__(self, config):
+    self.conf = config
     self.contestObjList = [] #contains only past or started contest objects
     self.contestDateList = [] #contains past and future contest dates
     self.handleMap = config['users']
     self.startDate = config['startDate']
     self.endDate = config['endDate']
-    self.contestDates = ContestDates(config)
     self.updateRanking()
 
   def getRanking(self):
@@ -34,6 +34,7 @@ class Ranking:
     self.calcStandings()
 
   def fetchContests(self):
+    self.contestDates = ContestDates(self.conf)
     newContestDates = self.contestDates.getDates()
     if newContestDates != self.contestDates:
       self.contestDateList = newContestDates

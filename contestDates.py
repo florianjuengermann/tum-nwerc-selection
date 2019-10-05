@@ -36,8 +36,19 @@ class ContestDates:
 		request = requests.get("https://atcoder.jp/contests/")
 		html = request.text
 		parsed = BeautifulSoup(html, "lxml")
-		upcomingTable = parsed.find(id='contest-table-upcoming').find('table')
-		contests += self.parseACTable(upcomingTable, start, end)
+		upTabl1 = parsed.find(id='contest-table-upcoming')
+		if upTabl1 == None:
+			print("no upcoming contests found")
+		else:
+			upcomingTable = upTabl1.find('table')
+			contests += self.parseACTable(upcomingTable, start, end)
+
+		curTabl1 = parsed.find(id='contest-table-action')
+		if curTabl1 == None:
+			print("no currently active contests found")
+		else:
+			currentTable = curTabl1.find('table')
+			contests += self.parseACTable(currentTable, start, end)
 		return contests
 	
 	def parseACTable(self, table, start, end):

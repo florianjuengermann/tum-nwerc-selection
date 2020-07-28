@@ -24,7 +24,7 @@ class Contest(ABC):
 	def calcHandleScore(self, handle:str) -> float:
 		avgScore = self.getAvgScore()
 		score = self.getRawScore(handle)
-		scaledScore = score / avgScore
+		scaledScore = score / avgScore if avgScore != 0 else 0
 		#print("avgScore: {:04.2f}, score for {}: {:04.2f}".format(avgScore, handle, score))
 		return scaledScore
 	

@@ -11,6 +11,7 @@ class AtcoderContest(Contest):
 		self.handlesSolved = {}
 		self.numberSolved = {}
 		self.name = self.id[:3] + self.id[4:] # leave out '0' -> 5 chars only
+		return # TODO set cookie
 		try:
 			url = "https://atcoder.jp/contests/" + self.id + "/standings/json"
 			r = requests.get(url, timeout=15)

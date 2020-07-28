@@ -1,5 +1,5 @@
 import json, requests, time, urllib.parse
-import sys, traceback, random, hashlib
+import sys, traceback, random, hashlib, os
 import bot
 
 requestUrl = ''
@@ -7,9 +7,12 @@ lastUpdateID = -1
 
 def readRequestUrl():
   global requestUrl
-  requestUrl = [line.rstrip('\n') for line in open('.telegram_api_url')][0]
+  if os.path.isfile('.telegram_api_url'):
+    requestUrl = [line.rstrip('\n') for line in open('.telegram_api_url')][0]
 
 def sendMessage(chatId, text, reply_markup = None):
+  if requestUrl == '':
+    return
   # dont send msg 100sec after restart
   #if time.time() - RESTART < 100:
   #  return
@@ -34,6 +37,8 @@ def sendMessage(chatId, text, reply_markup = None):
 
 
 def poll():
+  if requestUrl == '':
+    return []
   try:
     r = requests.get(requestUrl + 'getUpdates?offset=' + str(lastUpdateID+1), timeout=5)
     r = r.json()

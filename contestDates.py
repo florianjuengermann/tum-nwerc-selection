@@ -9,6 +9,12 @@ from pytz import timezone
 def getTimestamp(dateString) -> float:
 	return datetime.timestamp(datetime.strptime(dateString, "%d.%m.%Y"))
 
+# also allows Div. 1 contest, need to be filtered afterwards
+# if Div. 2 is also present
+def isValidCFContentName(name):
+	return not "unrated" in name and ("Educational" in name or "Global" in name or "Div. 1" in name)
+
+
 class ContestDates:
 	def __init__(self, config):
 		self.config = config
@@ -21,11 +27,13 @@ class ContestDates:
 			return []
 		contests = [c for c in contests if c.get('startTimeSeconds', -1) >= start]
 		contests = [c for c in contests if c.get('startTimeSeconds', -1) <= end]
-		contests = [c for c in contests if "Educational" in c['name']]
+		filteredcontests = [c for c in contests if isValidCFContentName(c['name'])]
+		filteredcontests = [c for c in filteredcontests if len(
+				[c2 for c2 in contests if c2.get('startTimeSeconds', -1) == c.get('startTimeSeconds', -1)]) == 1]
 
 		return [{		"time": c['startTimeSeconds'],
 								"type": "codeforces",
-								"id": 	c["id"]} for c in contests]
+								"id": 	c["id"]} for c in filteredcontests]
 
 	def getACContests(self, start, end):
 		request = requests.get("https://atcoder.jp/contests/archive?category=1")

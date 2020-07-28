@@ -2,6 +2,23 @@ from contest import Contest
 import codeforcesApi as cfApi
 import re
 
+def getLongestNum(name):
+	if re.search("[0-9][0-9][0-9]", name):
+		return re.search("[0-9][0-9][0-9]", name).group()
+	elif re.search("[0-9][0-9]", name):
+		return re.search("[0-9][0-9]", name).group()
+	return re.search("[0-9]", name).group()
+
+def getName(name):
+	if "Educational" in name:
+		return "Edu" + getLongestNum(name)
+	elif "Global" in name:
+		return "Glo" + getLongestNum(name)
+	elif "Div. 1" in name:
+		return "CF" + getLongestNum(name)
+	print("unknown contest type:", name)
+	return "CF???"
+
 class CodeforcesContest(Contest):
 
 	def __init__(self, id, handleMap):
@@ -13,8 +30,7 @@ class CodeforcesContest(Contest):
 		cfStandings = cfApi.request("contest.standings", {"contestId": self.id})
 		if cfStandings is False:
 			return
-		roundNr = re.search("[0-9][0-9]", cfStandings["contest"]["name"]).group()
-		self.name = "CF-" + str(roundNr)
+		self.name = getName(cfStandings["contest"]["name"])
 
 		# reset everything
 		self.handlesSolved = {}

@@ -1,17 +1,18 @@
 {
-  "startDate": "01.08.2019",
-  "endDate": "10.10.2019",
+  "startDate": "27.07.2020",
+  "endDate": "30.09.2020",
   "users": {
     "Tobias": {"codeforces-handle": "tob123", "atcoder-handle": "tob123"},
     "FlorianJ": {"codeforces-handle": "fjuengermann", "atcoder-handle": "fjuengermann"},
     "Konstantin": {"codeforces-handle": "Iriskinn", "atcoder-handle": "Iriskinn"},
     "Lukas": {"codeforces-handle": "lumibons", "atcoder-handle": "lumibons"},
-    "Gregor": {"codeforces-handle": "Gregory", "atcoder-handle": "Gregory"},
     "Volodymyr": {"codeforces-handle": "vlfom", "atcoder-handle": "vlfom"},
     "Erik": {"codeforces-handle": "eriksuenderhauf", "atcoder-handle": "eshoru"},
     "Leo": {"codeforces-handle": "Garrus", "atcoder-handle": "Garrus"},
     "Fabian": {"codeforces-handle": "_MF_", "atcoder-handle": "MF1"},
     "FlorianL": {"codeforces-handle": "fleimgruber", "atcoder-handle": "fleimgruber"},
-    "Atacan": {"codeforces-handle": "atacan", "atcoder-handle": "atacan"}
+    "Atacan": {"codeforces-handle": "atacan", "atcoder-handle": "atacan"},
+    "Luis": {"codeforces-handle": "luisBah", "atcoder-handle": "m3r8"},
+    "Pascal": {"codeforces-handle": "Prometheus_", "atcoder-handle": "Prometheus_"}
   }
 }

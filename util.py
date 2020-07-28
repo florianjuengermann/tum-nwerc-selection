@@ -62,12 +62,12 @@ class Table:
 		self.setMaxValues(rh, rData)
 
 	def setMaxValues(self, title:str, data:list):
-		cW = max([len(x) for x in data])
+		cW = max([len(x) for x in data]) if len(data) > 0 else 0
 		self.cellWidth = max(self.cellWidth, cW)
 		self.rhWidth = max(self.rhWidth, len(title))
 		self.colCount= max(self.colCount, len(data))
 
-	def toStr(self, width=120):
+	def toStr(self, width=36):
 		if self.displayKey:
 			rhWidth = self.rhWidth + len(":99.99") + len("10. ")
 		tableW = 0

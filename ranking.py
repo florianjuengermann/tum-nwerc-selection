@@ -70,6 +70,7 @@ class Ranking:
     return scoreSum
 
   def getTable(self) -> Table:
+    self.updateRanking()
     table = Table()
     table.setHead("", self.getContestNames())
     lst = zip(self.names, self.ranking)

@@ -38,12 +38,12 @@ class ContestDates:
 	def getACContests(self, start, end):
 		request = requests.get("https://atcoder.jp/contests/archive?category=1")
 		html = request.text
-		parsed = BeautifulSoup(html, "lxml")
+		parsed = BeautifulSoup(html)
 		contests = self.parseACTable(parsed.find('table'), start, end)
 
 		request = requests.get("https://atcoder.jp/contests/")
 		html = request.text
-		parsed = BeautifulSoup(html, "lxml")
+		parsed = BeautifulSoup(html)
 		upTabl1 = parsed.find(id='contest-table-upcoming')
 		if upTabl1 == None:
 			print("no upcoming contests found")

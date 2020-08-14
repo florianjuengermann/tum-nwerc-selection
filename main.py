@@ -8,3 +8,4 @@ if __name__ == '__main__':
 	table = ranking.getTable()
 	print("\nSTANDINGS:\n ")
 	print(table.toStr(width=80))
+	print(">> Contestants marked with * are ineligible <<")

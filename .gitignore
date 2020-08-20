@@ -1,4 +1,5 @@
 .telegram_api_url
+.atcoder_config.txt
 chatIds.json
 
 # Byte-compiled / optimized / DLL files

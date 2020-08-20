@@ -14,5 +14,7 @@ Install Python 3 and additionally the Python modules:
 For running the tool use `python3 main.py`. The current ranking will be printed to the console.
 The `runbot.py` file is used to host a Telegram bot for which Telegram API keys are needed.
 
+Atcoder now requires to be logged in to fetch the rankings. Therfore you need to provide valid login credentials in the file `.atcoder_config.txt`. The first line should contain the username, the second line the password.
+
 ## Contribution
 Please feel free to contribute to the project by creating a pull request.

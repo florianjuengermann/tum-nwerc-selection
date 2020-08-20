@@ -1,4 +1,5 @@
 import json, requests
+from bs4 import BeautifulSoup
 from contest import Contest
 
 class AtcoderContest(Contest):
@@ -6,15 +7,29 @@ class AtcoderContest(Contest):
 		self.handleString = "atcoder-handle"
 		super().__init__(id, handleMap)
 
+	def initSession():
+		[username, password] = [line.rstrip('\n') for line in open('.atcoder_config.txt')]
+		AtcoderContest.session = requests.Session()
+		loginUrl = "https://atcoder.jp/login"
+		request = AtcoderContest.session.get(loginUrl)
+		parsed = BeautifulSoup(request.text)
+		csrf_token = [element['value'] for element in parsed.find_all('input') if element['name'] == "csrf_token"][0]
+		loginData = {'username': username,
+								 'password': password,
+								 'csrf_token': csrf_token}
+		res = AtcoderContest.session.post(loginUrl, data=loginData)
+
+	def endSession():
+		AtcoderContest.session.close()
+
 	def updateScores(self):
 		print("fetching scores for Atcoder contest ", self.id)
 		self.handlesSolved = {}
 		self.numberSolved = {}
 		self.name = self.id[:3] + self.id[4:] # leave out '0' -> 5 chars only
-		return # TODO set cookie
 		try:
 			url = "https://atcoder.jp/contests/" + self.id + "/standings/json"
-			r = requests.get(url, timeout=15)
+			r = self.session.get(url, timeout=15)
 			r = r.json()
 			mapToNum = {}
 			i = 0

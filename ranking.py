@@ -36,6 +36,7 @@ class Ranking:
   def fetchContests(self):
     self.contestDates = ContestDates(self.conf)
     newContestDates = self.contestDates.getDates()
+    AtcoderContest.initSession()
     if newContestDates != self.contestDates:
       self.contestDateList = newContestDates
       self.contestObjList = []
@@ -46,6 +47,7 @@ class Ranking:
           self.contestObjList.append(AtcoderContest(date['id'], self.handleMap))
         else:
           self.contestObjList.append(CodeforcesContest(date['id'], self.handleMap))
+    AtcoderContest.endSession()
 
   def calcStandings(self):
     self.names = self.handleMap.keys()

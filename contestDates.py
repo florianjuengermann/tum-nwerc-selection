@@ -30,7 +30,6 @@ class ContestDates:
 		filteredcontests = [c for c in contests if isValidCFContentName(c['name'])]
 		filteredcontests = [c for c in filteredcontests if len(
 				[c2 for c2 in contests if c2.get('startTimeSeconds', -1) == c.get('startTimeSeconds', -1)]) == 1]
-
 		return [{		"time": c['startTimeSeconds'],
 								"type": "codeforces",
 								"id": 	c["id"]} for c in filteredcontests]

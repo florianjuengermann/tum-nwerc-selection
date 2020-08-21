@@ -31,12 +31,20 @@ class AtcoderContest(Contest):
 			url = "https://atcoder.jp/contests/" + self.id + "/standings/json"
 			r = self.session.get(url, timeout=15)
 			r = r.json()
-			mapToNum = {}
-			i = 0
+
+			scoresForTask = {} # taskname -> {score -> index in numberSolved/handlesSolved}
 			for task in r['TaskInfo']:
-				mapToNum[task['TaskScreenName']] = i
-				self.numberSolved[i] = 0
-				i += 1
+				scoresForTask[task['TaskScreenName']] = {}
+
+			taskIndex = 0
+			# Initialize scores for task for handling subtasks
+			for row in r['StandingsData']:
+				for taskName, result in row['TaskResults'].items():
+					if result['Score'] > 0 and result['Score'] not in scoresForTask[taskName]:
+						scoresForTask[taskName][result['Score']] = taskIndex
+						self.numberSolved[taskIndex] = 0
+						taskIndex += 1
+
 			for row in r['StandingsData']:
 				# only people with at least one submission are counted
 				if row['TotalResult']['Count'] == 0:
@@ -45,8 +53,11 @@ class AtcoderContest(Contest):
 				self.handlesSolved[handle] = []
 				for taskName, result in row['TaskResults'].items():
 					if result['Score'] > 0:
-						self.handlesSolved[handle].append(mapToNum[taskName])
-						self.numberSolved[mapToNum[taskName]] += 1
+						for score, index in scoresForTask[taskName].items():
+							# User solved all subtasks with score <= their score
+							if score <= result['Score']:
+								self.handlesSolved[handle].append(index)
+								self.numberSolved[index] += 1
 		except requests.exceptions.Timeout as e:
 			print("Fetching Atcoder results failed")
 			return False

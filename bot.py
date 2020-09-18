@@ -27,11 +27,6 @@ def handleMessage(chatId, text):
   func = msgSwitch.get(text.lower().strip(), invalidCommand)
   func(str(chatId), text)
 
-def update():
-  #global ranking
-  print("updating ranking object")
-  ranking.updateRanking()
-
 def msgAll(text):
   for chatId in chatIds:
     tg.sendMessage(chatId, text)
@@ -60,7 +55,6 @@ def mainLoop():
 
   tg.readRequestUrl()
   callbacks = [
-  (update, 3600, time.time()),
   (checkUpcomingContest,60,0),
   (tg.startPolling,1,0)
   ]

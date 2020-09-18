@@ -14,7 +14,6 @@ class Ranking:
     self.handleMap = config['users']
     self.startDate = config['startDate']
     self.endDate = config['endDate']
-    self.updateRanking()
 
   def getRanking(self):
     return self.ranking

@@ -10,7 +10,7 @@ def handleRanking(chatId, txt):
   n = len(ranking.getContestNames())
   msg = "Current standings after __n={}__ contests:\n".format(n)
   msg_ineligible = ">> Contestants marked with \* are ineligible <<"
-  tg.sendMessage(chatId, msg + "```\n" + table.toStr(width=32) + "```\n" + msg_ineligible)
+  tg.sendMessage(chatId, msg + "```\n" + table.toStr(width=25) + "```\n" + msg_ineligible)
 
 def invalidCommand(cid, msg):
   tg.sendMessage(cid, "Invalid command!")

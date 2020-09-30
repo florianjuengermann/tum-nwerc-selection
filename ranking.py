@@ -65,8 +65,8 @@ class Ranking:
     scoresCopy.reverse()
     n = len(scoresCopy)
     scoreSum = 0
-    # take ceil(n/2) scores
-    for i in range((n+1)//2):
+    # take 4 scores
+    for i in range(min(n, 4)): 
       scoreSum += scoresCopy[i]
     return scoreSum
 

@@ -16,6 +16,8 @@ def getName(name):
 		return "Glo" + getLongestNum(name)
 	elif "Div. 1" in name:
 		return "CF" + getLongestNum(name)
+	elif name == "Grakn Forces 2020":
+		return "Grakn"
 	print("unknown contest type:", name)
 	return "CF???"
 

@@ -27,7 +27,8 @@ class ContestDates:
 			return []
 		contests = [c for c in contests if c.get('startTimeSeconds', -1) >= start]
 		contests = [c for c in contests if c.get('startTimeSeconds', -1) <= end]
-		filteredcontests = [c for c in contests if isValidCFContentName(c['name'])]
+		addContestIds = [1408] # Grakn Forces 2020
+		filteredcontests = [c for c in contests if isValidCFContentName(c['name']) or c['id'] in addContestIds]
 		filteredcontests = [c for c in filteredcontests if len(
 				[c2 for c2 in contests if c2.get('startTimeSeconds', -1) == c.get('startTimeSeconds', -1)]) == 1]
 		return [{		"time": c['startTimeSeconds'],

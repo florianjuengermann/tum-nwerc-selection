@@ -27,7 +27,7 @@ class ContestDates:
 			return []
 		contests = [c for c in contests if c.get('startTimeSeconds', -1) >= start]
 		contests = [c for c in contests if c.get('startTimeSeconds', -1) <= end]
-		addContestIds = [1408] # Grakn Forces 2020
+		addContestIds = []
 		filteredcontests = [c for c in contests if isValidCFContentName(c['name']) or c['id'] in addContestIds]
 		filteredcontests = [c for c in filteredcontests if len(
 				[c2 for c2 in contests if c2.get('startTimeSeconds', -1) == c.get('startTimeSeconds', -1)]) == 1]
@@ -36,11 +36,19 @@ class ContestDates:
 								"id": 	c["id"]} for c in filteredcontests]
 
 	def getACContests(self, start, end):
+        # atcoder grand contest archive
 		request = requests.get("https://atcoder.jp/contests/archive?category=1")
 		html = request.text
 		parsed = BeautifulSoup(html)
 		contests = self.parseACTable(parsed.find('table'), start, end)
 
+        # atcoder regular contest archive
+		request = requests.get("https://atcoder.jp/contests/archive?ratedType=2")
+		html = request.text
+		parsed = BeautifulSoup(html)
+		contests = self.parseACTable(parsed.find('table'), start, end)
+
+        # atcoder current and future contests
 		request = requests.get("https://atcoder.jp/contests/")
 		html = request.text
 		parsed = BeautifulSoup(html)
@@ -70,7 +78,7 @@ class ContestDates:
 			utcTime = util.convertTimeZone(japanTime, "Asia/Tokyo", "Europe/Berlin")
 			timeStmp = datetime.timestamp(utcTime)
 			contestUrl = values[1].find('a').get('href')
-			contestRegex = re.search('agc[0-9]*', contestUrl)
+			contestRegex = re.search('(agc|arc)[0-9]*', contestUrl)
 #			if contestRegex is not None and timeStmp >= start-50*24*60*60 and timeStmp <= end:
 			if contestRegex is not None and timeStmp >= start and timeStmp <= end:
 				contestId = contestRegex.group()

@@ -3,7 +3,6 @@
   "endDate": "30.09.2021",
   "users": {
     "Tobias": {"codeforces-handle": "tob123", "atcoder-handle": "tob123"},
-    "FlorianJ": {"codeforces-handle": "fjuengermann", "atcoder-handle": "fjuengermann"},
     "Volodymyr": {"codeforces-handle": "vlfom", "atcoder-handle": "vlfom"},
     "Erik": {"codeforces-handle": "eriksuenderhauf", "atcoder-handle": "eshoru"},
     "Atacan": {"codeforces-handle": "atacan", "atcoder-handle": "atacan"},
@@ -20,6 +19,7 @@
     "Alex": {"codeforces-handle": "Ale70032", "atcoder-handle": "alexkandelaki"},
     "Jiong": {"codeforces-handle": "LJIONG", "atcoder-handle": "LJIONG"},
     "Pavel": {"codeforces-handle": "Jahoda", "atcoder-handle": "Jahoda"},
-    "Vanda": {"codeforces-handle": "vanda", "atcoder-handle": "____no_handle_known____"}
+    "Vanda": {"codeforces-handle": "vanda", "atcoder-handle": "____no_handle_known____"},
+    "Ahmed": {"codeforces-handle": "AhmedMaheeb", "atcoder-handle": "____no_handle_known____"}
   }
 }

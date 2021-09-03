@@ -26,7 +26,8 @@ class AtcoderContest(Contest):
 		print("fetching scores for Atcoder contest ", self.id)
 		self.handlesSolved = {}
 		self.numberSolved = {}
-		self.name = self.id[:3] + self.id[4:] # leave out '0' -> 5 chars only
+#self.name = self.id[:3] + self.id[4:] # leave out '0' -> 5 chars only
+		self.name = self.id
 		try:
 			url = "https://atcoder.jp/contests/" + self.id + "/standings/json"
 			r = self.session.get(url, timeout=15)

@@ -13,9 +13,6 @@ def readRequestUrl():
 def sendMessage(chatId, text, reply_markup = None):
   if requestUrl == '':
     return
-  # dont send msg 100sec after restart
-  #if time.time() - RESTART < 100:
-  #  return
   params = {
   'parse_mode':'Markdown',
   'chat_id':str(chatId),

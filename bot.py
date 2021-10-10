@@ -5,6 +5,9 @@ from ranking import Ranking
 from util import Table
 import util
 
+#infinity, so no contest reminder is sent during first run of checkUpcomingContest()
+lastTimeChecked = 1e15
+
 def handleRanking(chatId, txt):
   table = ranking.getTable()
   n = len(ranking.getContestNames())
@@ -28,22 +31,23 @@ def handleMessage(chatId, text):
   func(str(chatId), text)
 
 def msgAll(text):
+  print("send: {}".format(text))
   for chatId in chatIds:
     tg.sendMessage(chatId, text)
 
 def checkUpcomingContest():
+  global lastTimeChecked
   dates = ranking.getDates()
+  curTimeCheck = time.time()
   for d in dates:
-    curT = time.time()
     oneDayBef = d["time"] - 60*60*24
     twoHourBef = d["time"] - 60*60*2
     type = d["type"].capitalize()
-    if curT > twoHourBef and curT < twoHourBef + 60:
+    if lastTimeChecked < twoHourBef and twoHourBef <= curTimeCheck:
       msgAll("**Reminder:** Rated {} contest starts in 2h.".format(type))
-    if curT > oneDayBef and curT < oneDayBef + 60:
+    if lastTimeChecked < oneDayBef and oneDayBef <= curTimeCheck:
       msgAll("**Reminder:** Rated {} contest starts in 24h.".format(type))
-
-
+  lastTimeChecked = curTimeCheck
 
 def mainLoop():
   global config

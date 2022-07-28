@@ -1,9 +1,9 @@
 {
-  "startDate": "30.07.2021",
-  "endDate": "25.10.2021",
+  "startDate": "30.07.2022",
+  "endDate": "30.09.2022",
   "users": {
-    "Tobias": {"codeforces-handle": "tob123", "atcoder-handle": "tob123"},
     "Erik": {"codeforces-handle": "eriksuenderhauf", "atcoder-handle": "eshoru"},
+    "Xuan Zhang": {"codeforces-handle": "zx20010710", "atcoder-handle": "zx0710"},
     "Atacan": {"codeforces-handle": "atacan", "atcoder-handle": "atacan"},
     "Luis": {"codeforces-handle": "luisBah", "atcoder-handle": "m3r8"},
     "Pascal": {"codeforces-handle": "Prometheus_", "atcoder-handle": "Prometheus_"},

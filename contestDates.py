@@ -45,7 +45,7 @@ class ContestDates:
 		request = requests.get("https://atcoder.jp/contests/archive?ratedType=2")
 		html = request.text
 		parsed = BeautifulSoup(html)
-		contests = self.parseACTable(parsed.find('table'), start, end)
+		contests += self.parseACTable(parsed.find('table'), start, end)
 
         # atcoder current and future contests
 		request = requests.get("https://atcoder.jp/contests/")

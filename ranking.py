@@ -58,7 +58,7 @@ class Ranking:
         currentNameScores.append(c.getScore(name))
       self.ranking.append(currentNameScores)
 
-  def sortingKey(self, name, scores):
+  def sortingKey(self, scores):
     # sort descending
     scoresCopy = scores.copy()
     scoresCopy.sort()
@@ -75,9 +75,11 @@ class Ranking:
     table = Table()
     table.setHead("", self.getContestNames())
     lst = zip(self.names, self.ranking)
+    positiveScoreExists = any([self.sortingKey(scores) > 0 for scores in self.ranking])
     for name, scores in lst:
-      key = self.sortingKey(name, scores)
-      scoreStrings = ["{: 5.2f}".format(s) for s in scores]
-      table.addRow("{:.15}".format(name), scoreStrings, key)
+      key = self.sortingKey(scores)
+      if key > 0 or not positiveScoreExists:
+        scoreStrings = ["{: 5.2f}".format(s) for s in scores]
+        table.addRow("{:.15}".format(name), scoreStrings, key)
     table.sort()
     return table

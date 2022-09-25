@@ -22,6 +22,8 @@ class Ranking:
     return self.names
 
   def getDates(self):
+    self.contestDateList = []
+    self.fetchContests()
     return self.contestDateList
 
   def getContestNames(self):

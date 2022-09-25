@@ -7,7 +7,7 @@ from datetime import datetime
 from pytz import timezone
 
 def getTimestamp(dateString) -> float:
-	return datetime.timestamp(datetime.strptime(dateString, "%d.%m.%Y"))
+	return datetime.timestamp(datetime.strptime(dateString, "%d.%m.%Y:%H.%M.%S"))
 
 # also allows Div. 1 contest, need to be filtered afterwards
 # if Div. 2 is also present

@@ -1,6 +1,6 @@
 {
-  "startDate": "30.07.2022",
-  "endDate": "30.09.2022",
+  "startDate": "30.07.2022:00.00.01",
+  "endDate": "30.09.2022:23.59.59",
   "users": {
     "Erik": {"codeforces-handle": "eriksuenderhauf", "atcoder-handle": "eshoru"},
     "Xuan Zhang": {"codeforces-handle": "zx20010710", "atcoder-handle": "zx0710"},

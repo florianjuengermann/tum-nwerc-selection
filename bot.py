@@ -35,7 +35,7 @@ def msgAll(text):
   for chatId in chatIds:
     tg.sendMessage(chatId, text)
 
-def checkUpcomingContest():
+def checkAnnouncement():
   global lastTimeChecked
   dates = ranking.getDates()
   curTimeCheck = time.time()
@@ -49,6 +49,9 @@ def checkUpcomingContest():
       msgAll("**Reminder:** Rated {} contest starts in 24h.".format(type))
   lastTimeChecked = curTimeCheck
 
+def updateUpcomingContest():
+  ranking.updateDates()
+
 def mainLoop():
   global config
   global ranking
@@ -59,7 +62,8 @@ def mainLoop():
 
   tg.readRequestUrl()
   callbacks = [
-  (checkUpcomingContest,60,0),
+  (updateUpcomingContest,3600,0),
+  (checkAnnouncement,60,0),
   (tg.startPolling,1,0)
   ]
   while True:

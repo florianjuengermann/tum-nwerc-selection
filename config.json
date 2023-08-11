@@ -1,15 +1,12 @@
 {
-  "startDate": "30.07.2022:00.00.01",
-  "endDate": "30.09.2022:23.59.59",
+  "startDate": "13.08.2023:00.00.01",
+  "endDate": "22.10.2023:23.59.59",
   "users": {
-    "Erik": {"codeforces-handle": "eriksuenderhauf", "atcoder-handle": "eshoru"},
     "Xuan Zhang": {"codeforces-handle": "zx20010710", "atcoder-handle": "zx0710"},
-    "Atacan": {"codeforces-handle": "atacan", "atcoder-handle": "atacan"},
     "Luis": {"codeforces-handle": "luisBah", "atcoder-handle": "m3r8"},
     "Salim": {"codeforces-handle": "s_hertelli", "atcoder-handle": "s_hertelli"},
     "Pascal": {"codeforces-handle": "Prometheus_", "atcoder-handle": "Prometheus_"},
     "Yi Fan": {"codeforces-handle": "Fyind", "atcoder-handle": "Fyind"},
-    "Marc": {"codeforces-handle": "pemukl", "atcoder-handle": "____no_handle_known____"},
     "Jiong": {"codeforces-handle": "LJIONG", "atcoder-handle": "LJIONG"},
     "Pavel": {"codeforces-handle": "Jahoda", "atcoder-handle": "Jahoda"},
     "Ahmed": {"codeforces-handle": "AhmedMaheeb", "atcoder-handle": "AhmedMaheeb"},
@@ -29,10 +26,13 @@
     "Iheb": {"codeforces-handle": "ihG", "atcoder-handle": "ihG"},
     "Antoniu": {"codeforces-handle": "AntoniuMerla", "atcoder-handle": "AntoniuMerla"},
     "Kai": {"codeforces-handle": "iaK", "atcoder-handle": "kai_fo"},
+    "Kai F": {"codeforces-handle": "TractatusLogico", "atcoder-handle": "____no_handle_known____"},
     "Yamei": {"codeforces-handle": "chenziym", "atcoder-handle": "OrangeN"},
     "Jonas": {"codeforces-handle": "Ladner", "atcoder-handle": "Ladner"},
     "Saleh": {"codeforces-handle": "jahangard", "atcoder-handle": "____no_handle_known____"},
     "Ala": {"codeforces-handle": "Al4", "atcoder-handle": "____no_handle_known____"},
-    "Daniel": {"codeforces-handle": "danpfei02", "atcoder-handle": "danpfei02"}
+    "Daniel": {"codeforces-handle": "danpfei02", "atcoder-handle": "danpfei02"},
+    "Peter": {"codeforces-handle": "pashkinpeter", "atcoder-handle": "pashkinpeter"},
+    "Hedi": {"codeforces-handle": "HediChehaidar", "atcoder-handle": "HediChehaidar"}
   }
 }

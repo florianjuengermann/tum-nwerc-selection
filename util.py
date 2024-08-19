@@ -1,7 +1,13 @@
 import json
 from pytz import timezone
+import requests
 
 def readConfig():
+  myurl = "https://raw.githubusercontent.com/florianjuengermann/tum-nwerc-selection/master/config.json"
+  resp = requests.get(myurl)
+  return json.loads(resp.content)
+
+def readConfigOffline():
   with open('config.json') as f:
     return json.load(f)
   return {}

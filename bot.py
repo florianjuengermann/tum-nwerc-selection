@@ -52,6 +52,9 @@ def checkAnnouncement():
 def updateUpcomingContest():
   ranking.updateDates()
 
+def updateConfig():
+  config = util.readConfig()
+
 def mainLoop():
   global config
   global ranking
@@ -65,6 +68,7 @@ def mainLoop():
   (updateUpcomingContest,3600,0),
   (checkAnnouncement,60,0),
   (tg.startPolling,1,0)
+  (updateConfig,3600*24,0)
   ]
   while True:
     for i in range(len(callbacks)):

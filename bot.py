@@ -67,7 +67,7 @@ def mainLoop():
   callbacks = [
   (updateUpcomingContest,3600,0),
   (checkAnnouncement,60,0),
-  (tg.startPolling,1,0)
+  (tg.startPolling,1,0),
   (updateConfig,3600*24,0)
   ]
   while True:

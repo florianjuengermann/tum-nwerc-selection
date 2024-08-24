@@ -54,6 +54,7 @@ def updateUpcomingContest():
 
 def updateConfig():
   config = util.readConfig()
+  ranking.updateConfig(config)
 
 def mainLoop():
   global config

@@ -15,6 +15,12 @@ class Ranking:
     self.startDate = config['startDate']
     self.endDate = config['endDate']
 
+  def updateConfig(self, config):
+    self.conf = config
+    self.handleMap = config['users']
+    self.startDate = config['startDate']
+    self.endDate = config['endDate']
+
   def getRanking(self):
     return self.ranking
 
